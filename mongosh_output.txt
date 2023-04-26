@@ -1,0 +1,212 @@
+Please enter a MongoDB connection string (Default: mongodb://localhost/): mongodb://localhost/
+mongodb://localhost/
+Current Mongosh Log ID: 644983341f29ba169f962de0
+Connecting to:          mongodb://localhost/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.1
+Using MongoDB:          6.0.5
+Using Mongosh:          1.8.1
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2023-04-26T20:12:13.680+03:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+------
+   Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+   metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+   The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+   and anyone you share the URL with. MongoDB may use this information to make product
+   improvements and to suggest MongoDB products and deployment options to you.
+
+   To enable free monitoring, run the following command: db.enableFreeMonitoring()
+   To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+------
+
+test> use hw16
+switched to db hw16
+hw16> db.users.find()
+
+hw16> db.users.insertMany([{firstName: "Oleg", lastName: "Bondar", email: "oleg@bondar.com", age: 32, isMarried: true}, {firstName: "Tamara", lastName: "Bondar-Stus", email: "tamara@stus.com", age: 30, isMarried: true}, {firstName: "Maria", lastName: "Bondar", email: "maria@bondar.com", age: 5, isMarried: false}, {firstName: "Oleg", lastName: "Bondar", email: "oleg_junior@bondar.com", age: 5, isMarried: false}, {firstName: "Orest", lastName: "Bondar", email: "orest@bondar.com", age: 2, isMarried: false}]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6449868a1f29ba169f962de2"),
+    '1': ObjectId("6449868a1f29ba169f962de3"),
+    '2': ObjectId("6449868a1f29ba169f962de4"),
+    '3': ObjectId("6449868a1f29ba169f962de5"),
+    '4': ObjectId("6449868a1f29ba169f962de6")
+  }
+}
+hw16> db.users.find()
+[
+  {
+    _id: ObjectId("6449868a1f29ba169f962de2"),
+    firstName: 'Oleg',
+    lastName: 'Bondar',
+    email: 'oleg@bondar.com',
+    age: 32,
+    isMarried: true
+  },
+  {
+    _id: ObjectId("6449868a1f29ba169f962de3"),
+    firstName: 'Tamara',
+    lastName: 'Bondar-Stus',
+    email: 'tamara@stus.com',
+    age: 30,
+    isMarried: true
+  },
+  {
+    _id: ObjectId("6449868a1f29ba169f962de4"),
+    firstName: 'Maria',
+    lastName: 'Bondar',
+    email: 'maria@bondar.com',
+    age: 5,
+    isMarried: false
+  },
+  {
+    _id: ObjectId("6449868a1f29ba169f962de5"),
+    firstName: 'Oleg',
+    lastName: 'Bondar',
+    email: 'oleg_junior@bondar.com',
+    age: 5,
+    isMarried: false
+  },
+  {
+    _id: ObjectId("6449868a1f29ba169f962de6"),
+    firstName: 'Orest',
+    lastName: 'Bondar',
+    email: 'orest@bondar.com',
+    age: 2,
+    isMarried: false
+  }
+]
+hw16> db.users.find({firstName : "Oleg"});
+[
+  {
+    _id: ObjectId("6449868a1f29ba169f962de2"),
+    firstName: 'Oleg',
+    lastName: 'Bondar',
+    email: 'oleg@bondar.com',
+    age: 32,
+    isMarried: true
+  },
+  {
+    _id: ObjectId("6449868a1f29ba169f962de5"),
+    firstName: 'Oleg',
+    lastName: 'Bondar',
+    email: 'oleg_junior@bondar.com',
+    age: 5,
+    isMarried: false
+  }
+]
+hw16> db.users.find({lastName : "Bondar"});
+[
+  {
+    _id: ObjectId("6449868a1f29ba169f962de2"),
+    firstName: 'Oleg',
+    lastName: 'Bondar',
+    email: 'oleg@bondar.com',
+    age: 32,
+    isMarried: true
+  },
+  {
+    _id: ObjectId("6449868a1f29ba169f962de4"),
+    firstName: 'Maria',
+    lastName: 'Bondar',
+    email: 'maria@bondar.com',
+    age: 5,
+    isMarried: false
+  },
+  {
+    _id: ObjectId("6449868a1f29ba169f962de5"),
+    firstName: 'Oleg',
+    lastName: 'Bondar',
+    email: 'oleg_junior@bondar.com',
+    age: 5,
+    isMarried: false
+  },
+  {
+    _id: ObjectId("6449868a1f29ba169f962de6"),
+    firstName: 'Orest',
+    lastName: 'Bondar',
+    email: 'orest@bondar.com',
+    age: 2,
+    isMarried: false
+  }
+]
+hw16> db.users.find({email : { $regex: "^([a-z0-9_-]+\.)*[a-z0-9_-]+@bondar\.com" } });
+[
+  {
+    _id: ObjectId("6449868a1f29ba169f962de2"),
+    firstName: 'Oleg',
+    lastName: 'Bondar',
+    email: 'oleg@bondar.com',
+    age: 32,
+    isMarried: true
+  },
+  {
+    _id: ObjectId("6449868a1f29ba169f962de4"),
+    firstName: 'Maria',
+    lastName: 'Bondar',
+    email: 'maria@bondar.com',
+    age: 5,
+    isMarried: false
+  },
+  {
+    _id: ObjectId("6449868a1f29ba169f962de5"),
+    firstName: 'Oleg',
+    lastName: 'Bondar',
+    email: 'oleg_junior@bondar.com',
+    age: 5,
+    isMarried: false
+  },
+  {
+    _id: ObjectId("6449868a1f29ba169f962de6"),
+    firstName: 'Orest',
+    lastName: 'Bondar',
+    email: 'orest@bondar.com',
+    age: 2,
+    isMarried: false
+  }
+]
+hw16> db.users.find({age : { $gt: 18 }});
+[
+  {
+    _id: ObjectId("6449868a1f29ba169f962de2"),
+    firstName: 'Oleg',
+    lastName: 'Bondar',
+    email: 'oleg@bondar.com',
+    age: 32,
+    isMarried: true
+  },
+  {
+    _id: ObjectId("6449868a1f29ba169f962de3"),
+    firstName: 'Tamara',
+    lastName: 'Bondar-Stus',
+    email: 'tamara@stus.com',
+    age: 30,
+    isMarried: true
+  }
+]
+hw16> db.users.find({isMarried : true});
+[
+  {
+    _id: ObjectId("6449868a1f29ba169f962de2"),
+    firstName: 'Oleg',
+    lastName: 'Bondar',
+    email: 'oleg@bondar.com',
+    age: 32,
+    isMarried: true
+  },
+  {
+    _id: ObjectId("6449868a1f29ba169f962de3"),
+    firstName: 'Tamara',
+    lastName: 'Bondar-Stus',
+    email: 'tamara@stus.com',
+    age: 30,
+    isMarried: true
+  }
+]
+hw16>
